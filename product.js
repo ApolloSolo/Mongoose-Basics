@@ -61,6 +61,12 @@ const makeSale = async (prod) => {
     console.log(foundProd);
 }
 
+// Static Methods
+
+productSchema.statics.fireSale = function () {
+    return this.updateMany({}, {onSale: true, price: 1.99});
+}
+
 //Product Model
 const Product = mongoose.model('Product', productSchema);
 
@@ -76,8 +82,10 @@ const findProduct = async (prod) => {
     console.log(foundProd);
 }
 
-findProduct('Bike Helmet');
+Product.fireSale().then(res => console.log(res));
+//findProduct('Bike Helmet');
 //makeSale('Bike Helmet');
+
 
 /*
  const bike = new Product ({
